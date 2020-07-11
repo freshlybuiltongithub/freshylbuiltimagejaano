@@ -7,7 +7,9 @@ from keras.applications.xception import Xception
 from keras.preprocessing.sequence import pad_sequences
 from .downloader import model_downloader
 
+# Class image_description
 class image_description:
+	# Constructor of class
     def __init__(self,img_path,model_name):
 
         available_models={
@@ -17,7 +19,6 @@ class image_description:
 
         max_length = 32
         tokenizer = load(open("freshlybuiltimagejaano/tokenizer.p","rb"))
-        #model = load_model('models/model_29.h5')
         if model_name in available_models:
             model_name=available_models[model_name]
             if model_downloader("img_desc").status_code==1000:
@@ -26,7 +27,7 @@ class image_description:
         init(autoreset=True)
         print(Fore.MAGENTA + self.generate_desc(model, tokenizer,self.extract_features(img_path, xception_model), max_length))
         deinit()
-    
+    # Function for Feature Extraction 
     def extract_features(self,filename, model):
         image = Image.open(filename)
         image = image.resize((299,299))
@@ -39,13 +40,13 @@ class image_description:
         image = image - 1.0
         feature = model.predict(image)
         return feature
-
+    # Function for Retrieving Words by index value from tokenizer file
     def word_for_id(self,integer, tokenizer):
         for word, index in tokenizer.word_index.items():
             if index == integer:
                 return word
         return None
-
+    # Function for Generate Descriptions 
     def generate_desc(self,model, tokenizer, photo, max_length):
         in_text = 'start'
         for i in range(max_length):
