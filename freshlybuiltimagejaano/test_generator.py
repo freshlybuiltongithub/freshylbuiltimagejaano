@@ -5,9 +5,13 @@ from pickle import load
 from keras.models import load_model
 from keras.applications.xception import Xception
 from keras.preprocessing.sequence import pad_sequences
-from .downloader import model_downloader
+from .downloader import model_downloade
 
-# Class image_description
+'''image_description class generates description about image
+It contains 1.) constructor(), give image path and model name as parameters.
+            2.) extract_features(), convert 4 channel image into 3 channels and extract features from image.
+            3.) word_for_id(), retrieve Words by index value from tokenizer file.
+            4.) generate_desc(), generate descriptions according to features.'''
 class image_description:
 	# Constructor of class
     def __init__(self,img_path,model_name):
