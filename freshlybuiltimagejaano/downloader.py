@@ -20,6 +20,21 @@ code   meaning
 1009 - signature mismatch 
 """
 
+
+"""
+class model_downloader 
+      checks availability of model directory on run time
+      make https request to download model 
+
+      defined functions 
+      1 __init__ : declares object of class model_downloader calls model_downloader
+      2 download_model: - check directory availability
+                        - check model availibility form available model dictionary
+                        - returns status code 
+      3 start_downloading - make https request to the official github repository for downloading model (continue downloading feature not supported)
+      4 hash_signature_match - it generates hashes for the available model to compare with the available models dictionary in download_model function                  
+
+"""
 class model_downloader:
     status_code=0000
     
