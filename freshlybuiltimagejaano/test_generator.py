@@ -5,13 +5,17 @@ from pickle import load
 from keras.models import load_model
 from keras.applications.xception import Xception
 from keras.preprocessing.sequence import pad_sequences
-from .downloader import model_downloader
+from downloader import model_downloader
 
-'''image_description class generates description about image
+'''
+image_description class generates description about image
+
 It contains 1.) constructor(), give image path and model name as parameters.
             2.) extract_features(), convert 4 channel image into 3 channels and extract features from image.
             3.) word_for_id(), retrieve Words by index value from tokenizer file.
-            4.) generate_desc(), generate descriptions according to features.'''
+            4.) generate_desc(), generate descriptions according to features.
+'''
+
 class image_description:
 	# Constructor of class
     def __init__(self,img_path,model_name):
@@ -22,11 +26,11 @@ class image_description:
             }
 
         max_length = 32
-        tokenizer = load(open("freshlybuiltimagejaano/tokenizer.p","rb"))
+        tokenizer = load(open("tokenizer.p","rb"))
         if model_name in available_models:
             model_name=available_models[model_name]
             if model_downloader("img_desc").status_code==1000:
-                model = load_model('freshlybuiltimagejaano/models/'+model_name+'.h5')
+                model = load_model('models/'+model_name+'.h5')
                 xception_model = Xception(include_top=False, pooling="avg")
         init(autoreset=True)
         print(Fore.MAGENTA + self.generate_desc(model, tokenizer,self.extract_features(img_path, xception_model), max_length))
@@ -68,4 +72,4 @@ class image_description:
 
 """debugger"""
 #image_name=input('image_name: ')
-#image_description(image_name)
+#image_description(image_name,"img_desc")
