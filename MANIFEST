@@ -1,0 +1,7 @@
+include README.md LICENSE
+setup.cfg
+setup.py
+freshlybuiltimagejaano/__init__.py
+freshlybuiltimagejaano/downloader.py
+freshlybuiltimagejaano/test_generator.py
+freshlybuiltimagejaano/tokenizer.p
