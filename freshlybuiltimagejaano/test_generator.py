@@ -21,8 +21,7 @@ class image_description:
     def __init__(self,img_path,model_name):
 
         available_models={
-            "img_desc":"model_29",
-            "img_desc_r":"model_r_"
+            "img_desc":"model_29"
             }
 
         max_length = 32

@@ -45,8 +45,7 @@ class model_downloader:
         dir_path = path.dirname(path.realpath(__file__))
         
         available_models={
-            "img_desc":["model_29","57.2MB","3f2502cb4bdb483be654db226e7610be"],
-            "img_desc_r":["model_r_","57.2MB","d7c8e7bc24d64981e658771f860229b9"]
+            "img_desc":["model_29","57.2MB","3f2502cb4bdb483be654db226e7610be"]
             }
         
         if path.isdir(dir_path+"models/")==False:
@@ -105,7 +104,8 @@ class model_downloader:
     
     
     def start_downloading(self,model_name,dir_path,status_code):
-        model_url= "https://raw.githubusercontent.com/FreshlyBuilt/freshlybuiltimagebol/master/freshlybuiltimagebol/models/"
+        model_url= "https://raw.githubusercontent.com/freshlybuiltongithub/freshylbuiltimagejaano/master/freshlybuiltimagejaano/models/"
+            
         response = get(model_url+model_name[0]+".h5", stream=True)
         try:
             response.raise_for_status()   
