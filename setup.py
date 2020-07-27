@@ -26,17 +26,14 @@ setup(
   author_email = 'vishalsharma.gbpecdelhi@gmail.com',      
   url = 'https://github.com/freshlybuiltongithub/freshlybuiltimagejaano',   
   download_url = 'https://github.com/FreshlyBuilt/freshlybuiltimagebol/archive/v0.0.0.1.tar.gz',  
-  keywords = ['Image', 'Audio', 'Text'],   
+  keywords = ['Image', 'Text Generation', 'Text','Image Description from Image'],   
   install_requires=[            
-          'hyper',
-          'googletrans',
-          'gTTS',
           'Pillow',
-          'pytesseract',
-          'opencv-python',
           'numpy',
-          'matplotlib',
-          'imutils'
+          'tqdm',
+          'hashlib',
+          'colorama',
+          'keras'
       ],
   classifiers=[
     'Development Status :: 3 - Alpha',
