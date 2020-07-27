@@ -46,7 +46,6 @@ class model_downloader:
         
         available_models={
             "img_desc":["model_29","57.2MB","3f2502cb4bdb483be654db226e7610be"],
-            "img_desc_r":["model_r_","57.2MB","d7c8e7bc24d64981e658771f860229b9"]
             }
         
         if path.isdir(dir_path+"models/")==False:
