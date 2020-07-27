@@ -5,7 +5,7 @@ from pickle import load
 from keras.models import load_model
 from keras.applications.xception import Xception
 from keras.preprocessing.sequence import pad_sequences
-from downloader import model_downloader
+from freshlybuiltimagejaano.downloader import model_downloader
 
 '''
 image_description class generates description about image
