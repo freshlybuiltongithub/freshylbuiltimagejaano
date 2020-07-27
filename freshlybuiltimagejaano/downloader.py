@@ -104,7 +104,8 @@ class model_downloader:
     
     
     def start_downloading(self,model_name,dir_path,status_code):
-        model_url= "https://raw.githubusercontent.com/FreshlyBuilt/freshlybuiltimagebol/master/freshlybuiltimagebol/models/"
+        model_url= "https://raw.githubusercontent.com/freshlybuiltongithub/freshylbuiltimagejaano/master/freshlybuiltimagejaano/models/"
+            
         response = get(model_url+model_name[0]+".h5", stream=True)
         try:
             response.raise_for_status()   
