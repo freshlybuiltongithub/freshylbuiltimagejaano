@@ -28,6 +28,6 @@ image_description(r'image_path','img_desc')
 
 
 ### Contributors
-- Vishal Sharma
-- Komal Pal
-- Ravi Pawar
+- [Vishal Sharma](https://github.com/vishal2612200/):		G.B. Pant Govt. Engineering College, New Delhi
+- [Komal Pal](https://github.com/komal3120): G.B. Pant Govt. Engineering College, New Delhi
+- [Ravi Pawar](https://github.com/ravi5175):  G.B. Pant Govt. Engineering College, New Delhi
