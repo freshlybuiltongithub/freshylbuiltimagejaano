@@ -45,7 +45,7 @@ class model_downloader:
         dir_path = path.dirname(path.realpath(__file__))
         
         available_models={
-            "img_desc":["model_29","57.2MB","3f2502cb4bdb483be654db226e7610be"],
+            "img_desc":["model_29","57.2MB","3f2502cb4bdb483be654db226e7610be"]
             }
         
         if path.isdir(dir_path+"models/")==False:
