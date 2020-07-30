@@ -28,7 +28,6 @@ class image_description:
         tokenizer = load(open("tokenizer.p","rb"))
         if model_name in available_models:
             model_name=available_models[model_name]
-            print(model_downloader("img_desc").status_code)
             if model_downloader("img_desc").status_code==1000:
                 model = load_model('models/'+model_name+'.h5')
                 xception_model = Xception(include_top=False, pooling="avg")
