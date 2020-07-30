@@ -2,7 +2,7 @@ from requests import get
 from os import mkdir,path,remove
 from tqdm import tqdm
 from hashlib import md5
-import colorama as col
+from colorama import init,deinit,Fore
 
 """
 freshlybuiltimagebol library model downloader
@@ -48,34 +48,39 @@ class model_downloader:
             "img_desc":["model_29","57.2MB","3f2502cb4bdb483be654db226e7610be"]
             }
         
-        if path.isdir(dir_path+"models/")==False:
-            try:
-                mkdir(dir_path+"/models")
-            except:
-                print("models directory found")
+        if path.isdir(dir_path+"/models/")==False:
+           mkdir(dir_path+"/models")
             
         if model_name in available_models:
             model_name=available_models[model_name]
             if path.isfile(dir_path+"/models/"+model_name[0]+".h5")==False:
                 try:
                     print('starting model download')
-                    print("don't quit until downlaoding completes")
+                    print("don't quit until downloading completes")
                     print('download can take time depending upon your internet conection')
+                    init(autoreset=True)
                     print(Fore.BLUE+model_name[0]+" is of "+model_name[1])
-                    choice=input(Fore.YELLOW+"do you wish to download type 'y':")
+                    deinit()
+                    init(autoreset=True)
+                    choice=input(col.Fore.YELLOW+"do you wish to download type 'y':")
+                    deinit()
                     if (choice=='y'):
                         return self.start_downloading(model_name,dir_path,status_code)
                     else:
-                        print('download canceled')
+                        init(autoreset=True)
+                        print(Fore.RED+'download canceled')
+                        deinit()
                         status_code=0000
                         return status_code
                     print('model download successful')
                     self.status_code=1003
                     return status_code
                 except:
-                    print('download interrupted')
+                    init(autoreset=True)
+                    print(Fore.RED+'download interrupted')
+                    deinit()
                     try:
-                        remove(dir_path+"/models/"+model_name[0] +".pb")
+                        remove(dir_path+"/models/"+model_name[0] +".h5")
                         self.status_code=1002
                         return status_code
                     except:
@@ -92,7 +97,7 @@ class model_downloader:
                     print(Fore.CYAN+model_name[0]+" is of "+model_name[1])
                     re_choice=input(Fore.YELLOW+"press 'y' to start re-downloading: ")
                     if re_choice =='y':
-                        remove(dir_path+"/models/"+model_name[0] +".pb")
+                        remove(dir_path+"/models/"+model_name[0] +".h5")
                         self.start_downloading(model_name,dir_path,status_code)
                         self.hash_signature_match(model_name,available_models,dir_path,status_code)
                         return self.status_code
@@ -125,7 +130,7 @@ class model_downloader:
             print ("OOps: Something Else",err)
             self.status_code=1007
             return self.status_code
-        with open(dir_path+"/models/"+model_name[0] +".pb", "wb") as f:
+        with open(dir_path+"/models/"+model_name[0] +".h5", "wb") as f:
             total_length = int(response.headers.get('content-length'))
             if total_length is None:
                 f.write(response.content)
@@ -144,15 +149,15 @@ class model_downloader:
         md5_hash.update(model_handler)
         hash_code=md5_hash.hexdigest()
         if hash_code == model_name[2]:
-            col.init(autoreset=True)
-            print(col.Fore.GREEN+"signature matched")
-            col.deinit()
+            init(autoreset=True)
+            print(Fore.GREEN+"signature matched")
+            deinit()
             self.status_code=1000
             return status_code
         else:
-            col.init(autoreset=True)
-            print(col.Fore.RED+"warning signature mismatched, model may not work properly ")
-            col.deinit()
+            init(autoreset=True)
+            print(Fore.RED+"warning signature mismatched, model may not work properly ")
+            deinit()
             self.status_code=1009
             return status_code
 
