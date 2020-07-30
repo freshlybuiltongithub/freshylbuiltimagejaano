@@ -62,7 +62,7 @@ class model_downloader:
                     print(Fore.BLUE+model_name[0]+" is of "+model_name[1])
                     deinit()
                     init(autoreset=True)
-                    choice=input(col.Fore.YELLOW+"do you wish to download type 'y':")
+                    choice=input(Fore.YELLOW+"do you wish to download type 'y':")
                     deinit()
                     if (choice=='y'):
                         return self.start_downloading(model_name,dir_path,status_code)
@@ -141,6 +141,7 @@ class model_downloader:
                         f.write(data)
                     except:
                         pass
+            print("Model download successful")
     
     def hash_signature_match(self,model_name,available_models,dir_path,status_code):
         model_checksum=dir_path+"/models/"+model_name[0]+".h5"
