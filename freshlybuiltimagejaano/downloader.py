@@ -62,7 +62,7 @@ class model_downloader:
                     print(Fore.BLUE+model_name[0]+" is of "+model_name[1])
                     deinit()
                     init(autoreset=True)
-                    choice=input(col.Fore.YELLOW+"do you wish to download type 'y':")
+                    choice=input(Fore.YELLOW+"do you wish to download type 'y':")
                     deinit()
                     if (choice=='y'):
                         return self.start_downloading(model_name,dir_path,status_code)
