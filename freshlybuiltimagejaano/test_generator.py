@@ -25,11 +25,12 @@ class image_description:
             }
 
         max_length = 32
-        tokenizer = load(open("tokenizer.p","rb"))
+        dir_path = path.dirname(path.realpath(__file__))
+        tokenizer = load(open(dir_path+"\\tokenizer.p","rb"))
         if model_name in available_models:
             model_name=available_models[model_name]
             if model_downloader("img_desc").status_code==1000:
-                model = load_model('models/'+model_name+'.h5')
+                model = load_model(dir_path+'\\models\\'+model_name+'.h5')
                 xception_model = Xception(include_top=False, pooling="avg")
         init(autoreset=True)
         print(Fore.MAGENTA + self.generate_desc(model, tokenizer,self.extract_features(img_path, xception_model), max_length))

@@ -141,6 +141,7 @@ class model_downloader:
                         f.write(data)
                     except:
                         pass
+            print("Model download successful")
     
     def hash_signature_match(self,model_name,available_models,dir_path,status_code):
         model_checksum=dir_path+"/models/"+model_name[0]+".h5"
