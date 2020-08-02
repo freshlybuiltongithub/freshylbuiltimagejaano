@@ -6,6 +6,7 @@ from keras.models import load_model
 from keras.applications.xception import Xception
 from keras.preprocessing.sequence import pad_sequences
 from freshlybuiltimagejaano.downloader import model_downloader
+from freshlybuiltimagejaano.get_token import token
 
 '''
 image_description class generates description about image
@@ -26,7 +27,16 @@ class image_description:
 
         max_length = 32
         dir_path = path.dirname(path.realpath(__file__))
-        tokenizer = load(open(dir_path+"\\tokenizer.p","rb"))
+
+
+        if path.isfile(path.dirname(path.realpath(__file__))+"/"+"tokenizer.p")==False:
+            token()
+            tokenizer = load(open("tokenizer.p","rb"))
+
+        else:
+            print("tokenizer load successful")
+            tokenizer = load(open("tokenizer.p","rb"))
+
         if model_name in available_models:
             model_name=available_models[model_name]
             if model_downloader("img_desc").status_code==1000:
