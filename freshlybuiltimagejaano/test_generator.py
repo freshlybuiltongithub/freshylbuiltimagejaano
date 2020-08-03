@@ -29,7 +29,7 @@ class image_description:
         dir_path = path.dirname(path.realpath(__file__))
 
 
-        if path.isfile(path.dirname(path.realpath(__file__))+"/"+"tokenizer.p")==False:
+        if path.isfile(path.dirname(dir_path+"/"+"tokenizer.p")==False:
             token()
             tokenizer = load(open("tokenizer.p","rb"))
 
