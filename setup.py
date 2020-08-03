@@ -17,7 +17,7 @@ except FileNotFoundError:
 setup(
   name = 'freshlybuiltimagejaano',         
   packages = ['freshlybuiltimagejaano'],   
-  version = '0.0.0.4',     
+  version = '0.0.0.5',     
   license='MIT',        
   description = 'Photo k baare m jaano',
   long_description=long_description,
@@ -25,7 +25,7 @@ setup(
   author = 'Vishal Sharma',                   
   author_email = 'vishalsharma.gbpecdelhi@gmail.com',      
   url = 'https://github.com/freshlybuiltongithub/freshlybuiltimagejaano',   
-  download_url = 'https://github.com/freshlybuiltongithub/freshylbuiltimagejaano/archive/v0.0.0.4.tar.gz',  
+  download_url = 'https://github.com/freshlybuiltongithub/freshylbuiltimagejaano/archive/v0.0.0.5.tar.gz',  
   keywords = ['Image', 'Text Generation', 'Text','Image Description from Image'],   
   install_requires=[            
           'Pillow',
