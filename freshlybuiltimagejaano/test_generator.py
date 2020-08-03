@@ -1,4 +1,3 @@
-from os import path
 from numpy import array,argmax,expand_dims
 from PIL import Image
 from colorama import init,deinit,Fore
