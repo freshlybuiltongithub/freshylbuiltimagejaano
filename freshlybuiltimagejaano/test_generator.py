@@ -31,11 +31,11 @@ class image_description:
 
         if path.isfile(dir_path+"/"+"tokenizer.p")==False:
             token()
-            tokenizer = load(open("tokenizer.p","rb"))
+            tokenizer = load(open(dir_path+"/"+"tokenizer.p","rb"))
 
         else:
+            tokenizer = load(open(dir_path+"/"+"tokenizer.p","rb"))
             print("tokenizer load successful")
-            tokenizer = load(open("tokenizer.p","rb"))
 
         if model_name in available_models:
             model_name=available_models[model_name]
