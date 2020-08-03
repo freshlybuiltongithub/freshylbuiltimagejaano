@@ -5,7 +5,7 @@ from hashlib import md5
 from colorama import init,deinit,Fore
 
 """
-freshlybuiltimagebol library model downloader
+freshlybuiltimagejaano library model downloader
 status_code for checking the execution status
 code   meaning
 1000 - model already exist
@@ -38,7 +38,7 @@ class model_downloader
 class model_downloader:
     status_code=0000
     
-    def __init__(self,model_name,status_code=0000):
+    def __init__(self,model_name,status_code=0):
         self.download_model(model_name,status_code)
 
     def download_model(self,model_name,status_code):
@@ -59,13 +59,13 @@ class model_downloader:
                     print("don't quit until downloading completes")
                     print('download can take time depending upon your internet conection')
                     init(autoreset=True)
-                    print(Fore.BLUE+model_name[0]+" is of "+model_name[1])
-                    deinit()
-                    init(autoreset=True)
+                    print(Fore.YELLOW+" "+model_name[0]+" is of "+model_name[1])
                     choice=input(Fore.YELLOW+"do you wish to download type 'y':")
                     deinit()
                     if (choice=='y'):
+                        init(autoreset=True)
                         return self.start_downloading(model_name,dir_path,status_code)
+                        deinit()
                     else:
                         init(autoreset=True)
                         print(Fore.RED+'download canceled')

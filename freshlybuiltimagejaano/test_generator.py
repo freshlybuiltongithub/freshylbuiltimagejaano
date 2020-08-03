@@ -1,5 +1,6 @@
 from os import path
 from numpy import array,argmax,expand_dims
+from os import path
 from PIL import Image
 from colorama import init,deinit,Fore
 from pickle import load
@@ -39,13 +40,13 @@ class image_description:
         print("tokenizer load successful")
 
         if model_name in available_models:
-            model_name=available_models[model_name]
-            if model_downloader("img_desc").status_code==1000:
-                model = load_model(dir_path+'\\models\\'+model_name+'.h5')
-                xception_model = Xception(include_top=False, pooling="avg")
-        init(autoreset=True)
-        print(Fore.MAGENTA + self.generate_desc(model, tokenizer,self.extract_features(img_path, xception_model), max_length))
-        deinit()
+            model_details=available_models[model_name]
+            model_downloader(model_name)
+            model = load_model(dir_path+'/models/'+model_details+'.h5')
+            xception_model = Xception(include_top=False, pooling="avg")
+            init(autoreset=True)
+            print(Fore.MAGENTA + self.generate_desc(model, tokenizer,self.extract_features(img_path, xception_model), max_length))
+            deinit()
     
     # Function for Feature Extraction 
     def extract_features(self,filename, model):
