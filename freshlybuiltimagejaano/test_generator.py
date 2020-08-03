@@ -35,7 +35,7 @@ class image_description:
 
         else:
             tokenizer = load(open(dir_path+"/"+"tokenizer.p","rb"))
-            print("tokenizer load successful")
+        print("tokenizer load successful")
 
         if model_name in available_models:
             model_name=available_models[model_name]
