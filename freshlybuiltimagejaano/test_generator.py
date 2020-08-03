@@ -1,4 +1,3 @@
-from os import path
 from numpy import array,argmax,expand_dims
 from os import path
 from PIL import Image
