@@ -17,6 +17,7 @@ It contains 1.) constructor(), give image path and model name as parameters.
             2.) extract_features(), convert 4 channel image into 3 channels and extract features from image.
             3.) word_for_id(), retrieve Words by index value from tokenizer file.
             4.) generate_desc(), generate descriptions according to features.
+            5.) return_desc_text(), this function will return description text to store it into a variable and for further use of this text
 '''
 
 class image_description:
@@ -45,9 +46,12 @@ class image_description:
             model = load_model(dir_path+'/models/'+model_details+'.h5')
             xception_model = Xception(include_top=False, pooling="avg")
             init(autoreset=True)
+            self.x=self.generate_desc(model, tokenizer,self.extract_features(img_path, xception_model), max_length)
             print(Fore.MAGENTA + self.generate_desc(model, tokenizer,self.extract_features(img_path, xception_model), max_length))
             deinit()
-    
+    # Function for returning text  
+    def return_desc_text(self):
+        return self.x
     # Function for Feature Extraction 
     def extract_features(self,filename, model):
         image = Image.open(filename)
