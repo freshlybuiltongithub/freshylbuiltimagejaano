@@ -1,8 +1,9 @@
-from requests import get
-from os import mkdir,path,remove
-from tqdm import tqdm
 from hashlib import md5
-from colorama import init,deinit,Fore
+from os import mkdir, path, remove
+
+from colorama import Fore, deinit, init
+from requests import get
+from tqdm import tqdm
 
 """
 freshlybuiltimagejaano library model downloader
@@ -35,136 +36,149 @@ class model_downloader
       4 hash_signature_match - it generates hashes for the available model to compare with the available models dictionary in download_model function                  
 
 """
-class model_downloader:
-    status_code=0000
-    
-    def __init__(self,model_name,status_code=0):
-        self.download_model(model_name,status_code)
 
-    def download_model(self,model_name,status_code):
+
+class model_downloader:
+    status_code = 0000
+
+    def __init__(self, model_name, status_code=0):
+        self.download_model(model_name, status_code)
+
+    def download_model(self, model_name, status_code):
         dir_path = path.dirname(path.realpath(__file__))
-        
-        available_models={
-            "img_desc":["model_29","57.2MB","3f2502cb4bdb483be654db226e7610be"]
-            }
-        
-        if path.isdir(dir_path+"/models/")==False:
-           mkdir(dir_path+"/models")
-            
+
+        available_models = {
+            "img_desc": ["model_29", "57.2MB", "3f2502cb4bdb483be654db226e7610be"]
+        }
+
+        if path.isdir(dir_path + "/models/") == False:
+            mkdir(dir_path + "/models")
+
         if model_name in available_models:
-            model_name=available_models[model_name]
-            if path.isfile(dir_path+"/models/"+model_name[0]+".h5")==False:
+            model_name = available_models[model_name]
+            if path.isfile(dir_path + "/models/" + model_name[0] + ".h5") == False:
                 try:
                     print('starting model download')
                     print("don't quit until downloading completes")
-                    print('download can take time depending upon your internet conection')
+                    print(
+                        'download can take time depending upon your internet conection'
+                    )
                     init(autoreset=True)
-                    print(Fore.YELLOW+" "+model_name[0]+" is of "+model_name[1])
-                    choice=input(Fore.YELLOW+"do you wish to download type 'y':")
+                    print(Fore.YELLOW + " " + model_name[0] + " is of " + model_name[1])
+                    choice = input(Fore.YELLOW + "do you wish to download type 'y':")
                     deinit()
-                    if (choice=='y'):
+                    if choice == 'y':
                         init(autoreset=True)
-                        return self.start_downloading(model_name,dir_path,status_code)
+                        return self.start_downloading(model_name, dir_path, status_code)
                         deinit()
                     else:
                         init(autoreset=True)
-                        print(Fore.RED+'download canceled')
+                        print(Fore.RED + 'download canceled')
                         deinit()
-                        status_code=0000
+                        status_code = 0000
                         return status_code
                     print('model download successful')
-                    self.status_code=1003
+                    self.status_code = 1003
                     return status_code
                 except:
                     init(autoreset=True)
-                    print(Fore.RED+'download interrupted')
+                    print(Fore.RED + 'download interrupted')
                     deinit()
                     try:
-                        remove(dir_path+"/models/"+model_name[0] +".h5")
-                        self.status_code=1002
+                        remove(dir_path + "/models/" + model_name[0] + ".h5")
+                        self.status_code = 1002
                         return status_code
                     except:
-                        self.status_code=1002
+                        self.status_code = 1002
                         return status_code
             else:
                 print('model found')
                 print('checking encryption signature')
-                self.hash_signature_match(model_name,available_models,dir_path,status_code)
-                if self.status_code==1000:
+                self.hash_signature_match(
+                    model_name, available_models, dir_path, status_code
+                )
+                if self.status_code == 1000:
                     return self.status_code
                 else:
                     print(self.status_code)
-                    print(Fore.CYAN+model_name[0]+" is of "+model_name[1])
-                    re_choice=input(Fore.YELLOW+"press 'y' to start re-downloading: ")
-                    if re_choice =='y':
-                        remove(dir_path+"/models/"+model_name[0] +".h5")
-                        self.start_downloading(model_name,dir_path,status_code)
-                        self.hash_signature_match(model_name,available_models,dir_path,status_code)
+                    print(Fore.CYAN + model_name[0] + " is of " + model_name[1])
+                    re_choice = input(
+                        Fore.YELLOW + "press 'y' to start re-downloading: "
+                    )
+                    if re_choice == 'y':
+                        remove(dir_path + "/models/" + model_name[0] + ".h5")
+                        self.start_downloading(model_name, dir_path, status_code)
+                        self.hash_signature_match(
+                            model_name, available_models, dir_path, status_code
+                        )
                         return self.status_code
-                
-        else: 
-            print("no reference found for "+model_name)
-            self.status_code=1001
+
+        else:
+            print("no reference found for " + model_name)
+            self.status_code = 1001
             return status_code
-    
-    
-    def start_downloading(self,model_name,dir_path,status_code):
-        model_url= "https://raw.githubusercontent.com/freshlybuiltongithub/freshylbuiltimagejaano/master/freshlybuiltimagejaano/models/"
-            
-        response = get(model_url+model_name[0]+".h5", stream=True)
+
+    def start_downloading(self, model_name, dir_path, status_code):
+        model_url = "https://raw.githubusercontent.com/freshlybuiltongithub/freshylbuiltimagejaano/master/freshlybuiltimagejaano/models/"
+
+        response = get(model_url + model_name[0] + ".h5", stream=True)
         try:
-            response.raise_for_status()   
+            response.raise_for_status()
         except response.exceptions.HTTPError as errh:
-            print ("Http Error:",errh)
-            self.status_code=1004
+            print("Http Error:", errh)
+            self.status_code = 1004
             return self.status_code
         except response.exceptions.ConnectionError as errc:
-            print ("Error Connecting:",errc)
-            self.status_code=1005
+            print("Error Connecting:", errc)
+            self.status_code = 1005
             return self.status_code
         except response.exceptions.Timeout as errt:
-            print ("Timeout Error:",errt)
-            self.status_code=1006
+            print("Timeout Error:", errt)
+            self.status_code = 1006
             return self.status_code
         except response.exceptions.RequestException as err:
-            print ("OOps: Something Else",err)
-            self.status_code=1007
+            print("OOps: Something Else", err)
+            self.status_code = 1007
             return self.status_code
-        with open(dir_path+"/models/"+model_name[0] +".h5", "wb") as f:
+        with open(dir_path + "/models/" + model_name[0] + ".h5", "wb") as f:
             total_length = int(response.headers.get('content-length'))
             if total_length is None:
                 f.write(response.content)
             else:
-                chunk_size=1024
-                for data in tqdm(iterable = response.iter_content(chunk_size),total=total_length/chunk_size, unit = 'KB'):
+                chunk_size = 1024
+                for data in tqdm(
+                    iterable=response.iter_content(chunk_size),
+                    total=total_length / chunk_size,
+                    unit='KB',
+                ):
                     try:
                         f.write(data)
                     except:
                         pass
             print("Model download successful")
-    
-    def hash_signature_match(self,model_name,available_models,dir_path,status_code):
-        model_checksum=dir_path+"/models/"+model_name[0]+".h5"
-        md5_hash=md5()
-        model_handler=open(model_checksum,"rb").read()
+
+    def hash_signature_match(self, model_name, available_models, dir_path, status_code):
+        model_checksum = dir_path + "/models/" + model_name[0] + ".h5"
+        md5_hash = md5()
+        model_handler = open(model_checksum, "rb").read()
         md5_hash.update(model_handler)
-        hash_code=md5_hash.hexdigest()
+        hash_code = md5_hash.hexdigest()
         if hash_code == model_name[2]:
             init(autoreset=True)
-            print(Fore.GREEN+"signature matched")
+            print(Fore.GREEN + "signature matched")
             deinit()
-            self.status_code=1000
+            self.status_code = 1000
             return status_code
         else:
             init(autoreset=True)
-            print(Fore.RED+"warning signature mismatched, model may not work properly ")
+            print(
+                Fore.RED + "warning signature mismatched, model may not work properly "
+            )
             deinit()
-            self.status_code=1009
+            self.status_code = 1009
             return status_code
 
-        
-        
+
 """downloader_debugger"""
-#model_name=input("model name: ")
-#print(imagebol_model_downloader(model_name).status_code) 
- 
+# model_name=input("model name: ")
+# print(imagebol_model_downloader(model_name).status_code)
